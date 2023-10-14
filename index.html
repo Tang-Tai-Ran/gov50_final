@@ -1517,8 +1517,54 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to one of my history courses, potentially about economic history of a particular city in China.</p>
+<h2 id="project-milestone-2">Project Milestone 2</h2>
+<p>I have downloaded data here <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7</a>
+Attia, Hana; Julia Grauvogel, 2022, “International Sanctions Termination Dataset”, <a href="https://doi.org/10.7910/DVN/SVR5W7" class="uri">https://doi.org/10.7910/DVN/SVR5W7</a>, Harvard Dataverse, V1</p>
+<p>The data set records international sanctions put in place from 1990 to 2018. The variables I am interested in studying for the dataset are:</p>
+<ol type="1">
+<li>Measures: there are a total of 11 measures that can be grouped into roughly economic, military and diplomatic sanctions</li>
+<li>Goals: Democracy support, Support human rights, Address armed conflict, Nuclear non-proliferation, Stop proliferation or usage of weapons of mass destruction, Counterterrorism, Stop drug trafficking, and Address convention breach.</li>
+</ol>
+<ol type="a">
+<li>Whether there is an adaptation of goals over sanction duration</li>
+</ol>
+<ol start="3" type="1">
+<li>Outcome: acquiscience, capitulation or stalemate</li>
+<li>Sender (santioning country) economic cost</li>
+<li>Target (sanctioned country) economic cost</li>
+<li>Negotiations over termination: whether there is a presence of bilateral engagement as signifier of attempt towards change</li>
+<li>Multilateralism: whether there tends to be a coalition of senders for a sanction</li>
+<li>Expiry date: whether there is a sunset clause written into sanctions</li>
+<li>Target issue salience: how criticially does the sanction hurt the sanctioend country</li>
+<li>Sender issue salience: how critically does imposing the sanction hurt the country</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#install.packages("readxl")</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span></span>
+<span><span class='va'>IST_JPR_Attia_Grauvogel</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span><span class='op'>(</span><span class='st'>"~/Desktop/dataverse_files/IST_JPR_Attia&amp;Grauvogel.xlsx"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h1 id="preamble">Preamble:</h1>
+<p>Steven Pinker argued in “The Better Angels of Our Nature: Why Violence Has Declined” that the world is currently in the most peaceful era of human history. A neo-liberal view of the international system we currently enjoy would support him and claim that cooperation and non-violence is the norm as nation-states have more interwoven interests that raises the cost of war to prohibitive levels. A realist, however, would disagree and see the anarchy of international disorder simply change its form – from kinetic warfare to economic warfare, from gunpowder to the dollar.</p>
+<p>I am interested in seeing whether it is true that the methods of conflict had simply transformed itself with the rules permitted by the neo-liberal international system, or whether the international system had in fact substantively changed its predisposition for peace. It would be a more comparative approach to trace sanction’s change and continuity over time.</p>
+<h1 id="research-question">Research Question:</h1>
+<p>“Have sanctions become an instrument abused by nation-state aggressors to initiate a new front for international conflict?”</p>
+<h1 id="hypothesis">Hypothesis</h1>
+<p>If it is true that sanctions have been transformed into a new front, I hypothesise that there are a few observables:</p>
+<ol type="1">
+<li><p>Less multilateral cohesiveness. Sanctions risk becoming instrumentalised by nation-states to achieve bilateral interests through lobbying to the international community. Therefore, the presence of multilateral support behind a sanction highlights a more broad-based consensus of peace, and an absence of it indicates greater specificity in targeting, and potentially more unilateral aggression from the sender nation-state.</p></li>
+<li><p>Less consistent goals. Goals of the sanction that are articulated and then changed points to inconsistency in a nation-state’s stance. The shifting of goal posts possibly shows that the sanctions are less concerned with outcome and is treated as a means to service nation-state’s ends.</p></li>
+<li><p>Outcome of sanction matched with the sender and target economic costs. Traditional kinetic conflict hurts everyone but incurs costs that are mostly borne by the loser. Thus, economic costs of sanctions can be an indicator of whether the success of an outcome is simply achieved through brute force that the target can no longer swallow, or whether there were more facilitative negotiations that reinforce neo-liberal systems.</p></li>
+<li><p>Absence of expiry date. More hardline sanctions that could potentially lead to stalemate and fester the wounds of conflict can be seen as an act of aggression. It also indicates less interwoven interests and undermines the assumption that the international system is premised on win-win or lose-lose situations. This can also be expected if sanctions show a trend of being less salient to the sender compared to the target, where asymmetry benefits aggressors and become a tool of choice.</p></li>
+</ol>
+<h1 id="follow-up-action">Follow Up Action</h1>
+<p>To further my understanding of how to interpret the data, I will be pursuing the following lines of actions:</p>
+<ol type="1">
+<li>Literature review of sanctions and their use and abuse</li>
+<li>Qualitative analysis that complements overly economic data analysis in quantifying the outcomes of sanctions</li>
+<li>Determine unit of measurement: when were sanctions conceived of as good for peaceful conflict resolution, and when did they “become” more popularly abused.</li>
+</ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
