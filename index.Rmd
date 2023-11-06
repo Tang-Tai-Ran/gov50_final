@@ -7,6 +7,39 @@ output:
     self_contained: false
 ---
 
+## Project Milestone 3
+
+```{r}
+
+library(readxl)
+sanction <- read_excel("~/Desktop/dataverse_files/IST_JPR_Attia&Grauvogel.xlsx")
+
+library(tidyverse)
+data_sanction <- sanction|>
+  select(-sender, -target, -startdate, -terdate, -defactoter, -ongoing, -gradual, -datasets, -sourceimp, - sourceter, -instinvestment, -comment, -goals, -costsender) |>
+  mutate_all(~ifelse(. %in% c("Blank"), NA, .)) |> 
+    na.omit()
+
+data_sanction <- data_sanction |>
+  mutate(expiry = case_when(expiry == 0 ~ "no expiry",
+                            expiry == 1 ~ "will expire"),
+         review = case_when(review == 0 ~ "no review",
+                            review == 1 ~ "specific temporal review"),
+         adaptgoal = case_when(adaptgoal == 0 ~ "no change",
+                            adaptgoal == 1 ~ "adjusted goal"),
+         negotiations = case_when(negotiations == 0 ~ "no negotiations",
+                            negotiations == 1 ~ "negotiated"),
+         saliance = case_when(targetsalience < sendersalience ~ "assymetric stakes",
+                             targetsalience == sendersalience~ "equal stakes",
+                             targetsalience > sendersalience~ "self-defence stakes"),
+         costtarget = case_when(costtarget == "Major" | costtarget == "Severe" ~ "Economically Damaging",
+                             costtarget == "Minor" ~ "Minor damages")) |>
+           select(-targetsalience, -sendersalience)
+
+           
+```
+
+
 
 
 ## Project Milestone 2
