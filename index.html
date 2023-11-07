@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1525,9 +1525,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='va'>data_sanction</span> <span class='op'>&lt;-</span> <span class='va'>sanction</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sender</span>, <span class='op'>-</span><span class='va'>target</span>, <span class='op'>-</span><span class='va'>startdate</span>, <span class='op'>-</span><span class='va'>terdate</span>, <span class='op'>-</span><span class='va'>defactoter</span>, <span class='op'>-</span><span class='va'>ongoing</span>, <span class='op'>-</span><span class='va'>gradual</span>, <span class='op'>-</span><span class='va'>datasets</span>, <span class='op'>-</span><span class='va'>sourceimp</span>, <span class='op'>-</span> <span class='va'>sourceter</span>, <span class='op'>-</span><span class='va'>instinvestment</span>, <span class='op'>-</span><span class='va'>comment</span>, <span class='op'>-</span><span class='va'>goals</span>, <span class='op'>-</span><span class='va'>costsender</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></span><span class='op'>(</span><span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Blank"</span><span class='op'>)</span>, <span class='cn'>NA</span>, <span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
-<span>    <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sender</span>, <span class='op'>-</span><span class='va'>target</span>, <span class='op'>-</span><span class='va'>startdate</span>, <span class='op'>-</span><span class='va'>terdate</span>, <span class='op'>-</span><span class='va'>defactoter</span>, <span class='op'>-</span><span class='va'>ongoing</span>, <span class='op'>-</span><span class='va'>gradual</span>, <span class='op'>-</span><span class='va'>datasets</span>, <span class='op'>-</span><span class='va'>sourceimp</span>, <span class='op'>-</span> <span class='va'>sourceter</span>, <span class='op'>-</span><span class='va'>instinvestment</span>, <span class='op'>-</span><span class='va'>comment</span>, <span class='op'>-</span><span class='va'>goals</span>, <span class='op'>-</span><span class='va'>costsender</span><span class='op'>)</span> </span>
 <span></span>
 <span><span class='va'>data_sanction</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>expiry <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>expiry</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"no expiry"</span>,</span>
@@ -1542,10 +1540,185 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>                             <span class='va'>targetsalience</span> <span class='op'>==</span> <span class='va'>sendersalience</span><span class='op'>~</span> <span class='st'>"equal stakes"</span>,</span>
 <span>                             <span class='va'>targetsalience</span> <span class='op'>&gt;</span> <span class='va'>sendersalience</span><span class='op'>~</span> <span class='st'>"self-defence stakes"</span><span class='op'>)</span>,</span>
 <span>         costtarget <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Major"</span> <span class='op'>|</span> <span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Severe"</span> <span class='op'>~</span> <span class='st'>"Economically Damaging"</span>,</span>
-<span>                             <span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Minor"</span> <span class='op'>~</span> <span class='st'>"Minor damages"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>           <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>targetsalience</span>, <span class='op'>-</span><span class='va'>sendersalience</span><span class='op'>)</span></span></code></pre>
+<span>                             <span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Minor"</span> <span class='op'>~</span> <span class='st'>"Minor damages"</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>unfair_sanc</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>review</span>, <span class='va'>expiry</span>, <span class='va'>negotiations</span>, <span class='va'>adaptgoal</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>unfair_sanc</span><span class='op'>)</span></span></code></pre>
 </div>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 16%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">review</th>
+<th style="text-align: left;">expiry</th>
+<th style="text-align: left;">negotiations</th>
+<th style="text-align: left;">adaptgoal</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">127</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">74</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">no review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">no expiry</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">negotiated</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">adjusted goal</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">specific temporal review</td>
+<td style="text-align: left;">will expire</td>
+<td style="text-align: left;">no negotiations</td>
+<td style="text-align: left;">no change</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
 </div>
+<p>This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals.</p>
+<h3 id="action-item-the-theory-for-sanction-terms-is-currently-lacking-as-it-is-only-a-hypothesis-and-would-thus-require-secondary-readings-to-prove-that-these-are-sound-indicators-of-unfair-sanctions.">Action item: The theory for sanction terms is currently lacking as it is only a hypothesis, and would thus require secondary readings to prove that these are sound indicators of unfair sanctions.</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_data</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>multilateralism</span>, <span class='va'>costtarget</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>multilateralism_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>plot_data</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>multilateralism</span>, <span class='op'>-</span><span class='va'>count</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>costtarget</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Senders and Economic Damage of Sanctions"</span>, x <span class='op'>=</span> <span class='st'>"Senders' Multilateral Action"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>multilateralism_plot</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<p>This plot shows the proportion of multilateral to unilateral actions in the sanctions with the economic damages of the sanctions – and it is observable that US seems to be a unilateral actor in majority of the sanctions. It is significant that US unilateral sanctions with economic damages seems to rival all but one of their multilateral sanction in terms of objective cases. This could be both an assessment of individual stakeholder’s effectiveness of sanctions, and an indication of unilateral aggression. Depending on further analysis, this could either mean that sanctions are only weaponised when the stakeholders involved are decisive actors, or that US has a disproportionate monopoly over sanctions as a diplomatic weapon.</p>
+<h3 id="action-item-examine-the-breakdown-of-sanction-methods-and-relation-to-unfair-sanctions-mentioned-in-previous-table-through-a-treatment-of-either-factors.-this-can-highlight-the-relationship-between-actors-and-their-multilateral-actions-and-the-repercussions-of-the-sanctions.">Action item: Examine the breakdown of sanction methods and relation to unfair sanctions (mentioned in previous table) through a treatment of either factors. This can highlight the relationship between actors and their multilateral actions and the repercussions of the sanctions.</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sanction_effectiveness</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></span><span class='op'>(</span><span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Blank"</span><span class='op'>)</span>, <span class='cn'>NA</span>, <span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></span><span class='op'>(</span><span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>.</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"missing"</span><span class='op'>)</span>, <span class='cn'>NA</span>, <span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>outcome <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>outcome</span> <span class='op'>==</span> <span class='st'>"Sender capitulation"</span> <span class='op'>~</span> <span class='st'>"Fail"</span>,</span>
+<span>                              <span class='va'>outcome</span> <span class='op'>==</span> <span class='st'>"Stalemate"</span> <span class='op'>~</span> <span class='st'>"Fail"</span>,</span>
+<span>                              <span class='va'>outcome</span> <span class='op'>==</span> <span class='st'>"Target complete acquiescence"</span> <span class='op'>~</span> <span class='st'>"Success"</span>,</span>
+<span>                              <span class='va'>outcome</span> <span class='op'>==</span> <span class='st'>"Target partial acquiescence"</span> <span class='op'>~</span> <span class='st'>"Success"</span>,</span>
+<span>                             <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"Negotiated settlement"</span>, <span class='va'>outcome</span><span class='op'>)</span> <span class='op'>~</span> <span class='st'>"Win-Win"</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='co'># success defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement </span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>outcome</span>, <span class='va'>requirementter</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>effective_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>sanction_effectiveness</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>requirementter</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Goal Clarity and Outcome"</span>, x <span class='op'>=</span> <span class='st'>"Sanction Requirements"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span></span>
+<span>  </span>
+<span><span class='va'>effective_plot</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>This last plot helps to establish a baseline of sanction effectiveness. While there are significantly more sanctions with clear requirements that have succeeded, it is important to note that the proportion of fails, success and win-wins remains constant regardless of the clarity of sanction requirement. This means that differences in outcome relies on external factors beyond sanction terms, which exposes sanctions to more external factors that could be affected by geopolitical wills or simply the rule of might is right.</p>
+<h3 id="action-item-it-would-be-interesting-to-treat-sanction-outcome-with-the-issue-salience-as-well-to-check-whether-the-compliance-with-sanctions-has-more-to-do-with-the-interests-of-the-sender-and-target.-it-would-reveal-whether-the-outcome-is-more-significntly-explained-by-its-own-terms-or-by-external-factors.-it-would-also-be-interesting-to-perform-regression-analysis-to-test-for-significance-p-value-and-r-squared-to-check-the-significance-in-explanability.">Action item: It would be interesting to treat sanction outcome with the issue salience as well to check whether the compliance with sanctions has more to do with the interests of the sender and target. It would reveal whether the outcome is more significntly explained by its own terms, or by external factors. It would also be interesting to perform regression analysis to test for significance, p-value and r-squared to check the significance in explanability.</h3>
 <h2 id="project-milestone-2">Project Milestone 2</h2>
 <p>I have downloaded data here <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7</a>
 Attia, Hana; Julia Grauvogel, 2022, “International Sanctions Termination Dataset”, <a href="https://doi.org/10.7910/DVN/SVR5W7" class="uri">https://doi.org/10.7910/DVN/SVR5W7</a>, Harvard Dataverse, V1</p>

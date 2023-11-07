@@ -16,9 +16,7 @@ sanction <- read_excel("~/Desktop/dataverse_files/IST_JPR_Attia&Grauvogel.xlsx")
 
 library(tidyverse)
 data_sanction <- sanction|>
-  select(-sender, -target, -startdate, -terdate, -defactoter, -ongoing, -gradual, -datasets, -sourceimp, - sourceter, -instinvestment, -comment, -goals, -costsender) |>
-  mutate_all(~ifelse(. %in% c("Blank"), NA, .)) |> 
-    na.omit()
+  select(-sender, -target, -startdate, -terdate, -defactoter, -ongoing, -gradual, -datasets, -sourceimp, - sourceter, -instinvestment, -comment, -goals, -costsender) 
 
 data_sanction <- data_sanction |>
   mutate(expiry = case_when(expiry == 0 ~ "no expiry",
@@ -33,14 +31,63 @@ data_sanction <- data_sanction |>
                              targetsalience == sendersalience~ "equal stakes",
                              targetsalience > sendersalience~ "self-defence stakes"),
          costtarget = case_when(costtarget == "Major" | costtarget == "Severe" ~ "Economically Damaging",
-                             costtarget == "Minor" ~ "Minor damages")) |>
-           select(-targetsalience, -sendersalience)
-           
+                             costtarget == "Minor" ~ "Minor damages")) 
+
+unfair_sanc <- data_sanction |>
+  group_by(review, expiry, negotiations, adaptgoal) |>
+  summarise(count = n()) |>
+  drop_na()
+
+knitr::kable(unfair_sanc)
+      
+```
+This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals. 
+
+### Action item: The theory for sanction terms is currently lacking as it is only a hypothesis, and would thus require secondary readings to prove that these are sound indicators of unfair sanctions.
+
+```{r}
+plot_data <- data_sanction |>
+  group_by(multilateralism, costtarget) |>
+  summarise(count = n())
+
+multilateralism_plot <- ggplot(plot_data, mapping = aes(x = reorder(multilateralism, -count), y = count, fill = costtarget)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Sanction Senders and Economic Damage of Sanctions", x = "Senders' Multilateral Action", y = "Count")
+
+multilateralism_plot
 
 ```
+This plot shows the proportion of multilateral to unilateral actions in the sanctions with the economic damages of the sanctions -- and it is observable that US seems to be a unilateral actor in majority of the sanctions. It is significant that US unilateral sanctions with economic damages seems to rival all but one of their multilateral sanction in terms of objective cases. This could be both an assessment of individual stakeholder's effectiveness of sanctions, and an indication of unilateral aggression. Depending on further analysis, this could either mean that sanctions are only weaponised when the stakeholders involved are decisive actors, or that US has a disproportionate monopoly over sanctions as a diplomatic weapon.
+
+### Action item: Examine the breakdown of sanction methods and relation to unfair sanctions (mentioned in previous table) through a treatment of either factors. This can highlight the relationship between actors and their multilateral actions and the repercussions of the sanctions. 
+
+```{r}
+sanction_effectiveness <- data_sanction |>
+   mutate_all(~ifelse(. %in% c("Blank"), NA, .)) |> 
+    na.omit() |>
+  mutate_all(~ifelse(. %in% c("missing"), NA, .)) |> 
+    na.omit() |>
+  drop_na() |>
+   mutate(outcome = case_when(outcome == "Sender capitulation" ~ "Fail",
+                              outcome == "Stalemate" ~ "Fail",
+                              outcome == "Target complete acquiescence" ~ "Success",
+                              outcome == "Target partial acquiescence" ~ "Success",
+                             grepl("Negotiated settlement", outcome) ~ "Win-Win" )) |> # success defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement 
+  group_by(outcome, requirementter) |>
+  summarise(count = n())
+
+effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
+  geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count")
+  
+effective_plot
 
 
 
+```
+This last plot helps to establish a baseline of sanction effectiveness. While there are significantly more sanctions with clear  requirements that have succeeded, it is important to note that the proportion of fails, success and win-wins remains constant regardless of the clarity of sanction requirement. This means that differences in outcome relies on external factors beyond sanction terms, which exposes sanctions to more external factors that could be affected by geopolitical wills or simply the rule of might is right. 
+
+### Action item: It would be interesting to treat sanction outcome with the issue salience as well to check whether the compliance with sanctions has more to do with the interests of the sender and target. It would reveal whether the outcome is more significntly explained by its own terms, or by external factors. It would also be interesting to perform regression analysis to test for significance, p-value and r-squared to check the significance in explanability.
 
 ## Project Milestone 2
 
