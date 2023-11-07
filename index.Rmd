@@ -35,8 +35,8 @@ data_sanction <- data_sanction |>
          costtarget = case_when(costtarget == "Major" | costtarget == "Severe" ~ "Economically Damaging",
                              costtarget == "Minor" ~ "Minor damages")) |>
            select(-targetsalience, -sendersalience)
-
            
+
 ```
 
 
