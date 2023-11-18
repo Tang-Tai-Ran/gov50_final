@@ -75,7 +75,7 @@ The sanction senders proportion clearly highlights the dominance of US initiated
 
 ## Project Milestone 3
 
-```{r}
+###Notes
 unfair_sanc <- data_sanction |>
   group_by(review, expiry, negotiations, adaptgoal) |>
   summarise(count = n()) |>
