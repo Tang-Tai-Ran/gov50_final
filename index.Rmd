@@ -6,11 +6,8 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-
-## Project Milestone 3
-
-```{r}
-
+## Project Milestone 4
+```{r fig.height = 5, fig.width = 10}
 library(readxl)
 sanction <- read_excel("~/Desktop/dataverse_files/IST_JPR_Attia&Grauvogel.xlsx")
 
@@ -31,17 +28,109 @@ data_sanction <- data_sanction |>
                              targetsalience == sendersalience~ "equal stakes",
                              targetsalience > sendersalience~ "self-defence stakes"),
          costtarget = case_when(costtarget == "Major" | costtarget == "Severe" ~ "Economically Damaging",
-                             costtarget == "Minor" ~ "Minor damages")) 
+                             costtarget == "Minor" ~ "Minor damages"),
+    sender = str_split(caseid, "_", simplify = TRUE)[, 1],
+    target = str_split(caseid, "_", simplify = TRUE)[, 2],
+    year = str_split(caseid, "_", simplify = TRUE)[, 3],
+    year = as.numeric(year), 
+    year = if_else(year >= 48, year + 1900, year + 2000)
+  )
 
+data_sanction <- data_sanction |>
+   mutate_all(~ifelse(. %in% c("Blank"), NA, .)) |> 
+    na.omit() |>
+  mutate_all(~ifelse(. %in% c("missing"), NA, .)) |> 
+    na.omit() |>
+  drop_na() |>
+   mutate(outcome = case_when(outcome == "Sender capitulation" ~ "Fail",
+                              outcome == "Stalemate" ~ "Fail",
+                              outcome == "Target complete acquiescence" ~ "Success",
+                              outcome == "Target partial acquiescence" ~ "Success",
+                             grepl("Negotiated settlement", outcome) ~ "Win-Win" ))  # success defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement 
+
+sender_data <- data_sanction |>
+  group_by(sender, outcome) |>
+  summarise(count = n())
+  
+sender_plot <- ggplot(sender_data, mapping = aes(x = reorder(sender, -count), y = count, fill = outcome)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Sanction Senders and Outcomes Sanctions", x = "Senders", y = "Count")
+
+sender_plot
+
+sanction_effectiveness <- data_sanction |>
+   group_by(requirementter, outcome) |>
+  summarise(count = n())
+
+effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
+  geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count")
+  
+effective_plot
+  
+```
+### Analysis 
+The sanction senders proportion clearly highlights the dominance of US initiated sanctions compared to the international organisations. This is one indication of potentially abuse of sanctions based on economic power. The outcomes of these sanctions also highlight that something else is at play. Success is defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure is defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement for both target and sender. The US initiated sanctions have a much lower probability of success --  a greater distribution goes to failures and win-wins. When looking at the second graph of Sanction Goal Clarity and Outcome, it shows that the distribution of outcomes remains proportional for both ambiguous and clear terms of sanction. This eliminates sanction designs itself as explanation for the difference in US sanction outcomes. Therefore, it points to external forces exerting pressures on sanction outcomes -- and points towards further research to look at perhaps economic and military disparity between sender and target.
+
+
+## Project Milestone 3
+
+```{r}
 unfair_sanc <- data_sanction |>
   group_by(review, expiry, negotiations, adaptgoal) |>
   summarise(count = n()) |>
   drop_na()
 
 knitr::kable(unfair_sanc)
+
+# Unfair sanctions defined as failing 3 of 4 sanction design parameters
+
+test <- data_sanction |>
+  mutate_variable_on_permutation <- function(var, condition1, condition2, condition3, condition4) {
+  conditions <- c(condition1, condition2, condition3, condition4)
+
+  # Generate all permutations of 3 conditions
+  perms <- combn(conditions, 3)
+
+  # Check each column (permutation) for all TRUE values
+  for (i in 1:ncol(perms)) {
+    if (all(perms[, i])) {
+      # If all conditions in the permutation are TRUE, mutate the variable
+      var <- var + 1  # Replace this line with your desired mutation logic
+    }
+  }
+
+  return(var)
+}
+
+knitr::kable(test)
       
 ```
-This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals. 
+
+```{r}
+library(haven)
+cow <- read_dta("~/Downloads/NMC_Supplement_v4_0.dta") |>
+  select(stateabb, year, tpop)
+
+cow_sender <- cow |>
+  rename(sender = stateabb,
+         tpop_sender = tpop)
+
+cow_target <- cow |>
+  rename(target = stateabb,
+         tpop_target = tpop)
+
+new_sanctions <- data_sanction |>
+  left_join(cow_sender, by = c("sender", "year")) |>
+  left_join(cow_target, by = c("target", "year"))
+```
+
+
+
+This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals.^[Julio Solis, Book 1] 
+
+See this book [(Solis 2023)](https://www.openai.com/)
+
 
 ### Action item: The theory for sanction terms is currently lacking as it is only a hypothesis, and would thus require secondary readings to prove that these are sound indicators of unfair sanctions.
 
@@ -64,24 +153,13 @@ This plot shows the proportion of multilateral to unilateral actions in the sanc
 
 ```{r}
 sanction_effectiveness <- data_sanction |>
-   mutate_all(~ifelse(. %in% c("Blank"), NA, .)) |> 
-    na.omit() |>
-  mutate_all(~ifelse(. %in% c("missing"), NA, .)) |> 
-    na.omit() |>
-  drop_na() |>
-   mutate(outcome = case_when(outcome == "Sender capitulation" ~ "Fail",
-                              outcome == "Stalemate" ~ "Fail",
-                              outcome == "Target complete acquiescence" ~ "Success",
-                              outcome == "Target partial acquiescence" ~ "Success",
-                             grepl("Negotiated settlement", outcome) ~ "Win-Win" )) |> # success defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement 
-  group_by(outcome, requirementter) |>
+   group_by(requirementter, outcome) |>
   summarise(count = n())
 
 effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
   geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count")
   
 effective_plot
-
 
 
 ```
