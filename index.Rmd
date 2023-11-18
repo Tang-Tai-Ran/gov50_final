@@ -57,7 +57,7 @@ sender_plot <- ggplot(sender_data, mapping = aes(x = reorder(sender, -count), y 
   theme(axis.text.x = element_text(angle = 90)) +
   labs(title = "Sanction Senders and Outcomes Sanctions", x = "Senders", y = "Count")
 
-sender_plot
+print(sender_plot)
 
 sanction_effectiveness <- data_sanction |>
    group_by(requirementter, outcome) |>
@@ -66,7 +66,7 @@ sanction_effectiveness <- data_sanction |>
 effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
   geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count")
   
-effective_plot
+print(effective_plot)
   
 ```
 ### Analysis 
