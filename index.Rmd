@@ -6,8 +6,8 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-## Project Milestone 4
-```{r fig.height = 5, fig.width = 10}
+## Preparing Data
+```{r} 
 library(readxl)
 sanction <- read_excel("~/Desktop/dataverse_files/IST_JPR_Attia&Grauvogel.xlsx")
 
@@ -29,6 +29,11 @@ data_sanction <- data_sanction |>
                              targetsalience > sendersalience~ "self-defence stakes"),
          costtarget = case_when(costtarget == "Major" | costtarget == "Severe" ~ "Economically Damaging",
                              costtarget == "Minor" ~ "Minor damages"),
+         unfair = if_else(review == "no review" & adaptgoal == "adjusted goal" & expiry == "no expiry", "Unfair", 
+                  if_else(review == "no review" & adaptgoal == "adjusted goal" & negotiations == "no negotiations", "Unfair",
+                  if_else(review == "no review" & expiry == "no expiry" & negotiations == "no negotiations", "Unfair",
+                  if_else(negotiations == "no negotiations" & adaptgoal == "adjusted goal" & expiry == "no expiry", "Unfair",
+                    "Fair" )))),
     sender = str_split(caseid, "_", simplify = TRUE)[, 1],
     target = str_split(caseid, "_", simplify = TRUE)[, 2],
     year = str_split(caseid, "_", simplify = TRUE)[, 3],
@@ -48,6 +53,112 @@ data_sanction <- data_sanction |>
                               outcome == "Target partial acquiescence" ~ "Success",
                              grepl("Negotiated settlement", outcome) ~ "Win-Win" ))  # success defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement 
 
+# Joining Military Data
+library(haven)
+cow <- read_dta("~/Downloads/NMC_Supplement_v4_0.dta") |>
+  select(stateabb, year, milex, milper)
+
+cow_sender <- cow |>
+  rename(sender = stateabb,
+         military_expense = milex,
+         military_personnel = milper) |>
+  mutate(military_personnel =  military_personnel *1000)
+
+cow_target <- cow |>
+  rename(target = stateabb,
+         military_expense = milex,
+         military_personnel = milper) |>
+  mutate(military_personnel =  military_personnel *1000)
+         
+data_sanction <- data_sanction |>
+  left_join(cow_sender, by = c("sender", "year")) |>
+  left_join(cow_target, by = c("target", "year")) |>
+  rename( "Mil_ex_Sender" = "military_expense.x" ,
+          "Mil_per_Sender" = "military_personnel.x",
+          "Mil_ex_Target" = "military_expense.y",
+          "Mil_per_Target" = "military_personnel.y" )
+
+# Joining GDP data
+gdp <- read_csv("~/Desktop/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_6011335.csv", show_col_types = FALSE, skip = 4) |>
+  pivot_longer(cols = `1960`:`2022`, names_to = "year", values_to = "gdp") |>
+  select(`Country Code`, year, gdp) |>
+  filter(!is.na(gdp)) |>
+  mutate(across(.fns = as.character)) |>
+  type_convert()
+
+gdp_sender <- gdp |>
+  rename(sender = `Country Code`) |>
+  mutate(gdp_in_mils= `gdp`/1000000) |>
+  select(-gdp)
+
+gdp_target <- gdp |>
+  rename(target = `Country Code`)|>
+  mutate(gdp_in_mils = `gdp`/1000000) |>
+  select(-gdp)
+
+data_sanction <- data_sanction |>
+  left_join(gdp_sender, by = c("sender", "year")) |>
+  left_join(gdp_target, by = c("target", "year")) |>
+  rename( "GDP of Sender (mils)" = "gdp_in_mils.x" ,
+          "GDP of Target (mils)" = "gdp_in_mils.y") 
+
+data_sanction <- data_sanction |>
+  mutate(mil_coerc = case_when(Mil_ex_Target/Mil_ex_Target < 0.25 ~ "Overwhelming military superiority",
+                               Mil_ex_Target/Mil_ex_Target >= 0.25 | Mil_ex_Target/Mil_ex_Target < 0.5 ~ "Military superiority",
+                               Mil_ex_Target/Mil_ex_Target >= 0.5 ~ "Baseline inequality"),
+         econ_power = case_when(`GDP of Target (mils)`/`GDP of Sender (mils)` < 0.1 ~ "Sender significantly richer",
+                                `GDP of Target (mils)`/`GDP of Sender (mils)` >= 0.1 | `GDP of Target (mils)`/`GDP of Sender (mils)` < 0.5 ~ "Sender slightly richer",
+                                `GDP of Target (mils)`/`GDP of Sender (mils)` >= 0.5 ~ "Baseline inequality"))
+
+  
+```
+Success is defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure is defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement for both target and sender. 
+
+Unfair is defined as failing 3 of 4 design parameters for the sanction terms of either no review date for santions, no negotiations initiated, no expiry date, or a sender change of goals. These are terms that, when taken together, indicate a lack of interest in engaging with the issue that inspired the sanction and a lack of intention to end the sanction upon successful enforcement of santion terms.
+
+## Visualising Data
+
+```{r fig.height = 5, fig.width = 10}
+library(wesanderson)
+library(kableExtra)
+
+sanction_effectiveness <- data_sanction |>
+   group_by(requirementter, outcome) |>
+  summarise(count = n())
+
+effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
+  geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count") +
+  theme_linedraw()
+  
+effective_plot + scale_fill_manual(values = wes_palette("GrandBudapest1"))
+
+effective_prop <- sanction_effectiveness |>
+  mutate(prop = count/sum(count)) |>
+  select(-count) |>
+  kbl(caption = "Sanction Goal Clarity and Outcome")  |>
+  kable_minimal() |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+  
+effective_prop
+
+unfairness_test <- data_sanction |>
+   group_by(unfair, outcome) |>
+  summarise(count = n())
+
+fairness_plot <- ggplot(unfairness_test, mapping = aes(x = outcome, y = count, fill = unfair)) +
+  geom_col() + 
+  labs(title = "Sanction Unfairness and Outcome", x = "Outcome", y = "Count") +
+  theme_linedraw()
+
+fairness_plot + scale_fill_manual(values = wes_palette("GrandBudapest1"))
+
+```
+
+When looking at the graph of Sanction Goal Clarity and Outcome, it shows that the distribution of outcomes remains proportional for both ambiguous and clear terms of sanction. Furthermore, the table for sanction goal clarity and outcome shows that the proportion of fail:success:win-win is similar for ambiguous and clear sanction terms. 
+
+In addition, the graph for the Sanction Unfairness and Outcome shows that majority of the sanctions were fairly designed at least with the definition of fairness defined above. The proportion of fair and unfair sanction design also remains consistent within each outcome, showing that there is an external factor that is affecting the outcome. Taken together, the goal clarity and unfairness eliminates sanction designs itself as explanation for the differences in sanction outcome. Therefore, it points to external forces exerting pressures on sanction outcomes.
+
+```{r fig.height = 5, fig.width = 10}
 sender_data <- data_sanction |>
   group_by(sender, outcome) |>
   summarise(count = n())
@@ -55,77 +166,33 @@ sender_data <- data_sanction |>
 sender_plot <- ggplot(sender_data, mapping = aes(x = reorder(sender, -count), y = count, fill = outcome)) +
   geom_col() + 
   theme(axis.text.x = element_text(angle = 90)) +
+  theme_linedraw() +
   labs(title = "Sanction Senders and Outcomes Sanctions", x = "Senders", y = "Count")
 
-print(sender_plot)
+sender_plot + scale_fill_manual(values = wes_palette("GrandBudapest1"))
 
-sanction_effectiveness <- data_sanction |>
-   group_by(requirementter, outcome) |>
-  summarise(count = n())
-
-effective_plot <- ggplot(sanction_effectiveness, mapping = aes(x = requirementter, y = count, fill = outcome)) +
-  geom_col() + labs(title = "Sanction Goal Clarity and Outcome", x = "Sanction Requirements", y = "Count")
-  
-print(effective_plot) 
-  
 ```
-### Analysis 
-The sanction senders proportion clearly highlights the dominance of US initiated sanctions compared to the international organisations. This is one indication of potentially abuse of sanctions based on economic power. The outcomes of these sanctions also highlight that something else is at play. Success is defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure is defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement for both target and sender. The US initiated sanctions have a much lower probability of success --  a greater distribution goes to failures and win-wins. When looking at the second graph of Sanction Goal Clarity and Outcome, it shows that the distribution of outcomes remains proportional for both ambiguous and clear terms of sanction. This eliminates sanction designs itself as explanation for the difference in US sanction outcomes. Therefore, it points to external forces exerting pressures on sanction outcomes -- and points towards further research to look at perhaps economic and military disparity between sender and target.
+When looking at the graph of sanction senders and their outcomes, the sanction senders proportion clearly highlights the dominance of US initiated sanctions compared to the international organisations. This is one indication of potentially abuse of sanctions based on economic power. The US initiated sanctions have a much lower probability of success --  a greater distribution goes to failures and win-wins. While the majority of senders are multilateral actions taken by international actors, the majority of sanctions sent are initiated by the USA.
 
 
-## Project Milestone 3
+fit_sanction <- lm(outcome ~ treat_ind + vf_age + vf_racename + vf_female + vf_democrat + therm_trans_t0 + canvasser_trans, data = trans)
 
-###Notes
-unfair_sanc <- data_sanction |>
-  group_by(review, expiry, negotiations, adaptgoal) |>
-  summarise(count = n()) |>
-  drop_na()
-
-knitr::kable(unfair_sanc)
-
-# Unfair sanctions defined as failing 3 of 4 sanction design parameters
-
-test <- data_sanction |>
-  mutate_variable_on_permutation <- function(var, condition1, condition2, condition3, condition4) {
-  conditions <- c(condition1, condition2, condition3, condition4)
-
-  # Generate all permutations of 3 conditions
-  perms <- combn(conditions, 3)
-
-  # Check each column (permutation) for all TRUE values
-  for (i in 1:ncol(perms)) {
-    if (all(perms[, i])) {
-      # If all conditions in the permutation are TRUE, mutate the variable
-      var <- var + 1  # Replace this line with your desired mutation logic
-    }
-  }
-
-  return(var)
-}
-
-knitr::kable(test)
-      
-```
-
-```{r}
-library(haven)
-cow <- read_dta("~/Downloads/NMC_Supplement_v4_0.dta") |>
-  select(stateabb, year, tpop)
-
-cow_sender <- cow |>
-  rename(sender = stateabb,
-         tpop_sender = tpop)
-
-cow_target <- cow |>
-  rename(target = stateabb,
-         tpop_target = tpop)
-
-new_sanctions <- data_sanction |>
-  left_join(cow_sender, by = c("sender", "year")) |>
-  left_join(cow_target, by = c("target", "year"))
-```
+modelsummary::modelsummary(fit_ate,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
 
 
+
+
+
+
+
+
+
+
+
+## Random notes
 
 This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals.^[Julio Solis, Book 1] 
 
@@ -134,22 +201,6 @@ See this book [(Solis 2023)](https://www.openai.com/)
 
 ### Action item: The theory for sanction terms is currently lacking as it is only a hypothesis, and would thus require secondary readings to prove that these are sound indicators of unfair sanctions.
 
-```{r}
-plot_data <- data_sanction |>
-  group_by(multilateralism, costtarget) |>
-  summarise(count = n())
-
-multilateralism_plot <- ggplot(plot_data, mapping = aes(x = reorder(multilateralism, -count), y = count, fill = costtarget)) +
-  geom_col() + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(title = "Sanction Senders and Economic Damage of Sanctions", x = "Senders' Multilateral Action", y = "Count")
-
-multilateralism_plot
-
-```
-This plot shows the proportion of multilateral to unilateral actions in the sanctions with the economic damages of the sanctions -- and it is observable that US seems to be a unilateral actor in majority of the sanctions. It is significant that US unilateral sanctions with economic damages seems to rival all but one of their multilateral sanction in terms of objective cases. This could be both an assessment of individual stakeholder's effectiveness of sanctions, and an indication of unilateral aggression. Depending on further analysis, this could either mean that sanctions are only weaponised when the stakeholders involved are decisive actors, or that US has a disproportionate monopoly over sanctions as a diplomatic weapon.
-
-### Action item: Examine the breakdown of sanction methods and relation to unfair sanctions (mentioned in previous table) through a treatment of either factors. This can highlight the relationship between actors and their multilateral actions and the repercussions of the sanctions. 
 
 ```{r}
 sanction_effectiveness <- data_sanction |>
@@ -167,32 +218,11 @@ This last plot helps to establish a baseline of sanction effectiveness. While th
 
 ### Action item: It would be interesting to treat sanction outcome with the issue salience as well to check whether the compliance with sanctions has more to do with the interests of the sender and target. It would reveal whether the outcome is more significntly explained by its own terms, or by external factors. It would also be interesting to perform regression analysis to test for significance, p-value and r-squared to check the significance in explanability.
 
-## Project Milestone 2
+## Analysis
 
 I have downloaded data here https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7 
 Attia, Hana; Julia Grauvogel, 2022, "International Sanctions Termination Dataset", https://doi.org/10.7910/DVN/SVR5W7, Harvard Dataverse, V1
 
-The data set records international sanctions put in place from 1990 to 2018. The variables I am interested in studying for the dataset are:
-
-1) Measures: there are a total of 11 measures that can be grouped into roughly economic, military and diplomatic sanctions
-2) Goals: Democracy support, Support human rights, Address armed conflict, Nuclear non-proliferation, Stop proliferation or usage of weapons of mass destruction, Counterterrorism, Stop drug trafficking, and Address convention breach. 
-  a) Whether there is an adaptation of goals over sanction duration
-3) Outcome: acquiscience, capitulation or stalemate
-4) Sender (santioning country) economic cost
-5) Target (sanctioned country) economic cost
-6) Negotiations over termination: whether there is a presence of bilateral engagement as signifier of attempt towards change
-7) Multilateralism: whether there tends to be a coalition of senders for a sanction
-8) Expiry date: whether there is a sunset clause written into sanctions
-9) Target issue salience: how criticially does the sanction hurt the sanctioend country
-10) Sender issue salience: how critically does imposing the sanction hurt the country
-
-```{r}
-#install.packages("readxl")
-library(readxl)
-IST_JPR_Attia_Grauvogel <- read_excel("~/Desktop/dataverse_files/IST_JPR_Attia&Grauvogel.xlsx")
-
-
-```
 # Preamble:
 Steven Pinker argued in "The Better Angels of Our Nature: Why Violence Has Declined" that the world is currently in the most peaceful era of human history. A neo-liberal view of the international system we currently enjoy would support him and claim that cooperation and non-violence is the norm as nation-states have more interwoven interests that raises the cost of war to prohibitive levels. A realist, however, would disagree and see the anarchy of international disorder simply change its form -- from kinetic warfare to economic warfare, from gunpowder to the dollar.
 
@@ -201,27 +231,6 @@ I am interested in seeing whether it is true that the methods of conflict had si
 
 # Research Question: 
 "Have sanctions become an instrument abused by nation-state aggressors to initiate a new front for international conflict?"
-
-# Hypothesis
-
-If it is true that sanctions have been transformed into a new front, I hypothesise that there are a few observables:
-
-1) Less multilateral cohesiveness. Sanctions risk becoming instrumentalised by nation-states to achieve bilateral interests through lobbying to the international community. Therefore, the presence of multilateral support behind a sanction highlights a more broad-based consensus of peace, and an absence of it indicates greater specificity in targeting, and potentially more unilateral aggression from the sender nation-state.
-
-2) Less consistent goals. Goals of the sanction that are articulated and then changed points to inconsistency in a nation-state's stance. The shifting of goal posts possibly shows that the sanctions are less concerned with outcome and is treated as a means to service nation-state's ends.
-
-3) Outcome of sanction matched with the sender and target economic costs. Traditional kinetic conflict hurts everyone but incurs costs that are mostly borne by the loser. Thus, economic costs of sanctions can be an indicator of whether the success of an outcome is simply achieved through brute force that the target can no longer swallow, or whether there were more facilitative negotiations that reinforce neo-liberal systems.
-
-4) Absence of expiry date. More hardline sanctions that could potentially lead to stalemate and fester the wounds of conflict can be seen as an act of aggression. It also indicates less interwoven interests and undermines the assumption that the international system is premised on win-win or lose-lose situations. This can also be expected if sanctions show a trend of being less salient to the sender compared to the target, where asymmetry benefits aggressors and become a tool of choice.
-
-# Follow Up Action
-
-To further my understanding of how to interpret the data, I will be pursuing the following lines of actions:
-
-1) Literature review of sanctions and their use and abuse
-2) Qualitative analysis that complements overly economic data analysis in quantifying the outcomes of sanctions
-3) Determine unit of measurement: when were sanctions conceived of as good for peaceful conflict resolution, and when did they "become" more popularly abused. 
-
 
 
  
