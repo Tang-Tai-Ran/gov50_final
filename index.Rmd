@@ -1,5 +1,5 @@
 ---
-title: "Gov 50 Final Project"
+title: "Gov 50 Final Project: Sanctioning Peace"
 author: "Tai Ran Tang"
 description: "My final project"
 output:
