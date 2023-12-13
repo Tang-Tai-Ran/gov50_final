@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project: Sanctioning Peace"
 author: "Tai Ran Tang"
-description: "My final project"
+description: "Are sanctions the new front of international conflict?"
 output:
   distill::distill_article:
     self_contained: false
