@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-2-2.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-2-2.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-6-2.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,6 +1519,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<h1 id="introduction">Introduction:</h1>
+<p>Steven Pinker argued that the world is currently in the most peaceful era of human history.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> A neo-liberal view of the international system we currently enjoy would support him and claim that cooperation and non-violence is the norm as nation-states have more interwoven interests that raises the cost of war to prohibitive levels. A realist, however, would disagree and see the anarchy of international disorder simply change its form – from kinetic warfare to economic warfare, from gunpowder to the dollar. I am interested in seeing whether it is true that the methods of conflict had simply transformed itself with the rules permitted by the neo-liberal international system, or whether the international system had in fact substantively changed its predisposition for peace.</p>
+<p>The use of international sanctions will be treated as a potential weapon during peacetime. I have downloaded data here <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7</a> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. In addition, I have merged it with additional datasets about military power from <a href="https://correlatesofwar.org/data-sets/cow-war/" class="uri">https://correlatesofwar.org/data-sets/cow-war/</a> <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> as well as GDP data about the target and sender countries from <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD" class="uri">https://data.worldbank.org/indicator/NY.GDP.MKTP.CD</a> <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<h1 id="data">Data</h1>
 <h2 id="preparing-data">Preparing Data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1538,7 +1542,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>                            <span class='va'>adaptgoal</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"adjusted goal"</span><span class='op'>)</span>,</span>
 <span>         negotiations <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>negotiations</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"no negotiations"</span>,</span>
 <span>                            <span class='va'>negotiations</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"negotiated"</span><span class='op'>)</span>,</span>
-<span>         saliance <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>targetsalience</span> <span class='op'>&lt;</span> <span class='va'>sendersalience</span> <span class='op'>~</span> <span class='st'>"assymetric stakes"</span>,</span>
+<span>         salience <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>targetsalience</span> <span class='op'>&lt;</span> <span class='va'>sendersalience</span> <span class='op'>~</span> <span class='st'>"assymetric stakes"</span>,</span>
 <span>                             <span class='va'>targetsalience</span> <span class='op'>==</span> <span class='va'>sendersalience</span><span class='op'>~</span> <span class='st'>"equal stakes"</span>,</span>
 <span>                             <span class='va'>targetsalience</span> <span class='op'>&gt;</span> <span class='va'>sendersalience</span><span class='op'>~</span> <span class='st'>"self-defence stakes"</span><span class='op'>)</span>,</span>
 <span>         costtarget <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Major"</span> <span class='op'>|</span> <span class='va'>costtarget</span> <span class='op'>==</span> <span class='st'>"Severe"</span> <span class='op'>~</span> <span class='st'>"Economically Damaging"</span>,</span>
@@ -1617,57 +1621,37 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>          <span class='st'>"GDP of Target (mils)"</span> <span class='op'>=</span> <span class='st'>"gdp_in_mils.y"</span><span class='op'>)</span> </span>
 <span></span>
 <span><span class='va'>data_sanction</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mil_coerc <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Target</span> <span class='op'>&lt;</span> <span class='fl'>0.25</span> <span class='op'>~</span> <span class='st'>"Overwhelming military superiority"</span>,</span>
-<span>                               <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Target</span> <span class='op'>&gt;=</span> <span class='fl'>0.25</span> <span class='op'>|</span> <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Target</span> <span class='op'>&lt;</span> <span class='fl'>0.5</span> <span class='op'>~</span> <span class='st'>"Military superiority"</span>,</span>
-<span>                               <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Target</span> <span class='op'>&gt;=</span> <span class='fl'>0.5</span> <span class='op'>~</span> <span class='st'>"Baseline inequality"</span><span class='op'>)</span>,</span>
-<span>         econ_power <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&lt;</span> <span class='fl'>0.1</span> <span class='op'>~</span> <span class='st'>"Sender significantly richer"</span>,</span>
-<span>                                <span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&gt;=</span> <span class='fl'>0.1</span> <span class='op'>|</span> <span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&lt;</span> <span class='fl'>0.5</span> <span class='op'>~</span> <span class='st'>"Sender slightly richer"</span>,</span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mil_coerc <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Sender</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span> <span class='op'>~</span> <span class='st'>"Overwhelming military superiority"</span>,</span>
+<span>                               <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Sender</span> <span class='op'>&gt;=</span> <span class='fl'>0.05</span> <span class='op'>|</span> <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Target</span> <span class='op'>&lt;</span> <span class='fl'>0.8</span> <span class='op'>~</span> <span class='st'>"Military superiority"</span>,</span>
+<span>                               <span class='va'>Mil_ex_Target</span><span class='op'>/</span><span class='va'>Mil_ex_Sender</span> <span class='op'>&gt;=</span> <span class='fl'>0.8</span> <span class='op'>~</span> <span class='st'>"Baseline inequality"</span><span class='op'>)</span>,</span>
+<span>         econ_power <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span> <span class='op'>~</span> <span class='st'>"Sender significantly richer"</span>,</span>
+<span>                                <span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&gt;=</span> <span class='fl'>0.05</span> <span class='op'>|</span> <span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&lt;</span> <span class='fl'>0.5</span> <span class='op'>~</span> <span class='st'>"Sender slightly richer"</span>,</span>
 <span>                                <span class='va'>`GDP of Target (mils)`</span><span class='op'>/</span><span class='va'>`GDP of Sender (mils)`</span> <span class='op'>&gt;=</span> <span class='fl'>0.5</span> <span class='op'>~</span> <span class='st'>"Baseline inequality"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Success is defined as sender obtains goals through target partial or complete acquiescence (win-lose), failure is defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement for both target and sender.</p>
-<p>Unfair is defined as failing 3 of 4 design parameters for the sanction terms of either no review date for santions, no negotiations initiated, no expiry date, or a sender change of goals. These are terms that, when taken together, indicate a lack of interest in engaging with the issue that inspired the sanction and a lack of intention to end the sanction upon successful enforcement of santion terms.</p>
+<p><span style="text-decoration:underline">A few defining parameters:</span></p>
+<p>Success is defined from the perspective of the sender, as sender obtains goals through target partial or complete acquiescence (win-lose), fail is defined as sender capitulating to target or target obtaining stalemate (lose-win or lose-lose), win-win defined as negotiated settlement for both target and sender. However, when applied in the linear regression analysis, it will be simplified into simply 1 (success and win-win) or 0 (fail) for ease of calculating directionality of coefficient value.</p>
+<p>Unfair is defined as failing 3 of 4 design parameters for the sanction terms of either no review date for sanctions, no negotiations initiated, no expiry date, or a sender change of goals. These are terms that, when taken together, indicate a lack of interest in engaging with the issue that inspired the sanction and a lack of intention to end the sanction upon successful enforcement of sanction terms. This definition is built based on the theory from Mulder, where sanction becomes a means as an economic weapons when it resembles a blockade rather than a negotiation. It is thus a means to the end of economic punishment of the target rather than disciplining recalcitrant actors into the world order.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>Finally, a note on the definition of mil_coerc and econ_power’s boundaries. The range to qualify the relationship between the sender and target uses somewhat arbitrary proportions to delineate “overwhelming military superiority” from “military superiority” and so forth. This is because most of the data is between US and a target nation, and in all cases the disparity between military expenditure and GDP between the two is too wide to be meaningful categorisation. Unequal power is the baseline, so the boundaries of 0.05, 0.8 and 0.5 for each tier of disparity is somewhat arbitrarily drawn to manage the data differentiation.</p>
 <h2 id="visualising-data">Visualising Data</h2>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/karthik/wesanderson'>wesanderson</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haozhu233.github.io/kableExtra/'>kableExtra</a></span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>sanction_effectiveness</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
-<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>requirementter</span>, <span class='va'>outcome</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>effective_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>sanction_effectiveness</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>requirementter</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Goal Clarity and Outcome"</span>, x <span class='op'>=</span> <span class='st'>"Sanction Requirements"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span>  </span>
-<span><span class='va'>effective_plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/wesanderson/man/wes_palette.html'>wes_palette</a></span><span class='op'>(</span><span class='st'>"GrandBudapest1"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="960" /><img src="index_files/figure-html5/unnamed-chunk-2-2.png" width="960" /></p>
 </div>
-<img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="960" />
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>effective_prop</span> <span class='op'>&lt;-</span> <span class='va'>sanction_effectiveness</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='va'>count</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>count</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kbl.html'>kbl</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Sanction Goal Clarity and Outcome"</span><span class='op'>)</span>  <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_classic.html'>kable_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/kableExtra/man/kable_styling.html'>kable_styling</a></span><span class='op'>(</span>bootstrap_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"striped"</span>, <span class='st'>"hover"</span>, <span class='st'>"condensed"</span>, <span class='st'>"responsive"</span><span class='op'>)</span><span class='op'>)</span> </span>
-<span>  </span>
-<span><span class='va'>effective_prop</span></span></code></pre>
-</div>
+<div class="layout-chunk" data-layout="l-body">
 <table class=" lightable-minimal table table-striped table-hover table-condensed table-responsive" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-2">Table 1: </span>Sanction Goal Clarity and Outcome
+<span id="tab:unnamed-chunk-3">Table 1: </span>Sanction Goal Clarity and Outcome
 </caption>
 <thead>
 <tr>
 <th style="text-align:left;">
-requirementter
+Clarity of Goal
 </th>
 <th style="text-align:left;">
 outcome
 </th>
 <th style="text-align:right;">
-prop
+proportion
 </th>
 </tr>
 </thead>
@@ -1740,76 +1724,216 @@ Win-Win
 </tr>
 </tbody>
 </table>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>unfairness_test</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
-<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>unfair</span>, <span class='va'>outcome</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>fairness_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>unfairness_test</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>outcome</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>unfair</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Unfairness and Outcome"</span>, x <span class='op'>=</span> <span class='st'>"Outcome"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>fairness_plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/wesanderson/man/wes_palette.html'>wes_palette</a></span><span class='op'>(</span><span class='st'>"GrandBudapest1"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-2-2.png" width="960" /></p>
 </div>
 <p>When looking at the graph of Sanction Goal Clarity and Outcome, it shows that the distribution of outcomes remains proportional for both ambiguous and clear terms of sanction. Furthermore, the table for sanction goal clarity and outcome shows that the proportion of fail:success:win-win is similar for ambiguous and clear sanction terms.</p>
-<p>In addition, the graph for the Sanction Unfairness and Outcome shows that majority of the sanctions were fairly designed at least with the definition of fairness defined above. The proportion of fair and unfair sanction design also remains consistent within each outcome, showing that there is an external factor that is affecting the outcome. Taken together, the goal clarity and unfairness eliminates sanction designs itself as explanation for the differences in sanction outcome. Therefore, it points to external forces exerting pressures on sanction outcomes.</p>
+<p>In addition, the graph for the Sanction Unfairness and Outcome shows that majority of the sanctions were fairly designed at least with the definition of fairness above. The proportion of fair and unfair sanction design also remains consistent within each outcome, showing that there is an external factor that is affecting the outcome. Taken together, the goal clarity and unfairness eliminates sanction designs itself as explanation for the differences in sanction outcome. Therefore, it points to the fact that the dynamic between the sender and target is exerting pressures on sanction outcomes.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sender_data</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>sender</span>, <span class='va'>outcome</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
-<span>  </span>
-<span><span class='va'>sender_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>sender_data</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>sender</span>, <span class='op'>-</span><span class='va'>count</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_linedraw</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Senders and Outcomes Sanctions"</span>, x <span class='op'>=</span> <span class='st'>"Senders"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>sender_plot</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/wesanderson/man/wes_palette.html'>wes_palette</a></span><span class='op'>(</span><span class='st'>"GrandBudapest1"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="960" /></p>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="960" /></p>
-</div>
-<p>When looking at the graph of sanction senders and their outcomes, the sanction senders proportion clearly highlights the dominance of US initiated sanctions compared to the international organisations. This is one indication of potentially abuse of sanctions based on economic power. The US initiated sanctions have a much lower probability of success – a greater distribution goes to failures and win-wins. While the majority of senders are multilateral actions taken by international actors, the majority of sanctions sent are initiated by the USA.</p>
-<p>fit_sanction &lt;- lm(outcome ~ treat_ind + vf_age + vf_racename + vf_female + vf_democrat + therm_trans_t0 + canvasser_trans, data = trans)</p>
-<p>modelsummary::modelsummary(fit_ate,
-statistic = c(“s.e. = {std.error}”,
-“p = {p.value}”),
-gof_map = c(“nobs”, “r.squared”, “adj.r.squared”))</p>
-<h2 id="random-notes">Random notes</h2>
-<p>This table is a rough overview of some hypothesised indicators in the sanction terms that might indicate unfair sanctions. Specifically, the combination of no review timeline, no expiry, no negotiations, and goal adjustment indicate a breakdown in communications between sender and target, and is the most forceful in achieving desired sanction goals.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>See this book <a href="https://www.openai.com/">(Solis 2023)</a></p>
-<h3 id="action-item-the-theory-for-sanction-terms-is-currently-lacking-as-it-is-only-a-hypothesis-and-would-thus-require-secondary-readings-to-prove-that-these-are-sound-indicators-of-unfair-sanctions.">Action item: The theory for sanction terms is currently lacking as it is only a hypothesis, and would thus require secondary readings to prove that these are sound indicators of unfair sanctions.</h3>
+<p>When looking at the graph of sanction senders and their outcomes, the sanction senders proportion clearly highlights the dominance of US initiated sanctions compared to the international organisations. This is one indication of potentially abuse of sanctions based on economic power. The US initiated sanctions have a much lower probability of success – a greater distribution goes to failures and win-wins. While the majority of senders are multilateral actions taken by international actors, the majority of sanctions sent are initiated by the USA.In addition, the US contributed to the most number of failed or win-win sanctions that are disproportionate to almost every other organisation. Therefore, there is indication that something is motivating in higher volume but lower success sanctions initiated by the US.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sanction_effectiveness</span> <span class='op'>&lt;-</span> <span class='va'>data_sanction</span> <span class='op'>|&gt;</span></span>
-<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>requirementter</span>, <span class='va'>outcome</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>effective_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>sanction_effectiveness</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>requirementter</span>, y <span class='op'>=</span> <span class='va'>count</span>, fill <span class='op'>=</span> <span class='va'>outcome</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Sanction Goal Clarity and Outcome"</span>, x <span class='op'>=</span> <span class='st'>"Sanction Requirements"</span>, y <span class='op'>=</span> <span class='st'>"Count"</span><span class='op'>)</span></span>
-<span>  </span>
-<span><span class='va'>effective_plot</span></span></code></pre>
+<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="960" /></p>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+<p>This graph breaks down the unfairness of of sanction design according to senders. Interestingly, USA, EU and UN which have slightly more fair than unfair sanctions tended to be the ones which yielded the most unsuccessful sanction outcomes when compared to the previous graph. The EEC, on the other hand, with a high percentage of unfair sanction designs, managed to be relatively successful.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="960" /><img src="index_files/figure-html5/unnamed-chunk-6-2.png" width="960" /></p>
 </div>
-<p>This last plot helps to establish a baseline of sanction effectiveness. While there are significantly more sanctions with clear requirements that have succeeded, it is important to note that the proportion of fails, success and win-wins remains constant regardless of the clarity of sanction requirement. This means that differences in outcome relies on external factors beyond sanction terms, which exposes sanctions to more external factors that could be affected by geopolitical wills or simply the rule of might is right.</p>
-<h3 id="action-item-it-would-be-interesting-to-treat-sanction-outcome-with-the-issue-salience-as-well-to-check-whether-the-compliance-with-sanctions-has-more-to-do-with-the-interests-of-the-sender-and-target.-it-would-reveal-whether-the-outcome-is-more-significntly-explained-by-its-own-terms-or-by-external-factors.-it-would-also-be-interesting-to-perform-regression-analysis-to-test-for-significance-p-value-and-r-squared-to-check-the-significance-in-explanability.">Action item: It would be interesting to treat sanction outcome with the issue salience as well to check whether the compliance with sanctions has more to do with the interests of the sender and target. It would reveal whether the outcome is more significntly explained by its own terms, or by external factors. It would also be interesting to perform regression analysis to test for significance, p-value and r-squared to check the significance in explanability.</h3>
+<p>Finally, these two graphs show the effects of two potential external pressures that affect the outcome of the sanction. The effects of GDP disparity highlights how being significantly richer does not affect the success or failure of a sanction, but the smaller disparity overwhelmingly affects the win-win outcomes. This points to how a slightly more evenly matched economy might choose to seek negotiations and concessions.</p>
+<p>The effects of military expenditure graph shows a really interesting parallel as well, where the win-win outcomes are disproportionately higher when the disparity in military superiority as measured by expenditure is smaller. The other noticeable difference is that having overwhelming military superiority still has a high percentage of failures. No failure of sanction outcome is a result of spending too little on the military. This is telling – one does not require as much military spending and use of force to back up a sanction’s outcome.</p>
+<h1 id="results">Results</h1>
 <h2 id="analysis">Analysis</h2>
-<p>I have downloaded data here <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SVR5W7</a>
-Attia, Hana; Julia Grauvogel, 2022, “International Sanctions Termination Dataset”, <a href="https://doi.org/10.7910/DVN/SVR5W7" class="uri">https://doi.org/10.7910/DVN/SVR5W7</a>, Harvard Dataverse, V1</p>
-<h1 id="preamble">Preamble:</h1>
-<p>Steven Pinker argued in “The Better Angels of Our Nature: Why Violence Has Declined” that the world is currently in the most peaceful era of human history. A neo-liberal view of the international system we currently enjoy would support him and claim that cooperation and non-violence is the norm as nation-states have more interwoven interests that raises the cost of war to prohibitive levels. A realist, however, would disagree and see the anarchy of international disorder simply change its form – from kinetic warfare to economic warfare, from gunpowder to the dollar.</p>
-<p>I am interested in seeing whether it is true that the methods of conflict had simply transformed itself with the rules permitted by the neo-liberal international system, or whether the international system had in fact substantively changed its predisposition for peace. It would be a more comparative approach to trace sanction’s change and continuity over time.</p>
-<h1 id="research-question">Research Question:</h1>
-<p>“Have sanctions become an instrument abused by nation-state aggressors to initiate a new front for international conflict?”</p>
+<p>From some of the preliminary comments made above, there are a few things that the data is showing. Firstly, sanction design has minimal impact on the sanction outcome. The fairness of its terms and goal clarity has minimal effects on the possibility of a successful sanction in achieving the desired effects of getting a target nation to fall in line to a world order. If this could be validated through other data analysis, this would mean that preserving peace in a neo-liberal world order does not require one to agonise over processes like peacekeeping negotiations and sanction design. There are more effective levers that affect sanction outcome.</p>
+<p>Secondly, US is the sole contribute to unilateral sanctions, and proportionally also contributes the most to unfair sanctions taken against target countries. This in itself is a sign that sanctioning is a monopolised weapon that the US readily uses. Unilateral actions are usually unfairly imposing attrition and damage to target countries, which itself is a form of aggression. <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> In addition, the analysis on the GDP and military expenditure data of these unilateral actions of US against target nations reveal that most times the US possesses an overwhelming military and economic advantage – most of the target nations barely reach 5% of the proportion US spends. Coupled with the fact that the US is the only unilateral actor responsible for a disproportionate amount of sanctions – and unsuccessful sanctions too – shows that sanctions has become an ineffective tool to safeguard international order.</p>
+<p>Lastly, sanction outcomes that are constructive and beneficial to both target and sender are usually achieved with a reduced economic and military disparity. Win-win outcomes of sanctions are desirable because the sender is able to enforce international order and use sanctions as a peaceful method to keep the target nation in line, without neutralising the target’s own interests. This creates a more participatory world order built upon consensus and agreements rather than punishment. Being superior in terms of GDP and military expenditure does not guarantee sanction success or predict sanction failure, therefore the best middleground is to opt for a win-win.</p>
+<h2 id="linear-regression">Linear Regression</h2>
+<div class="layout-chunk" data-layout="l-body">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+1.600
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.407
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+costtargetMinor damages
+</td>
+<td style="text-align:center;">
+−0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.182
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.953
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+salienceequal stakes
+</td>
+<td style="text-align:center;">
+−0.473
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+salienceself-defence stakes
+</td>
+<td style="text-align:center;">
+−0.072
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.230
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.754
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mil_coercOverwhelming military superiority
+</td>
+<td style="text-align:center;">
+−0.636
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.336
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.064
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+econ_powerSender slightly richer
+</td>
+<td style="text-align:center;">
+−0.364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.336
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+p = 0.284
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.158
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The linear regression model reveals 3 important validations to the analysis above. Firstly, the relatively minor economic damages target nations incur are negatively related to the outcome of the sanction. The coefficient of the costtarget being minor damages is -0.011, or put another way, 1% more economic damage inflicted creates 1.1% increase in success of sanction outcomes. This seems to track with the result of other studies that shows that sanctions are most effective when the issues are more salient for the target, or when it is equally important to them.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Thus, sanction effectiveness does rely on punitive effects, which shows that sanctioning can be aggressive, and relies on inflicting more than minor damages to achieve success. The p-value is 1-0.953 = 0.047, which is &lt; 0.05. As such, the null hypothesis can be safely rejected if alpha = 0.05, and thus there is statistical significance.</p>
+<p>Secondly, having equal states on the salience of the sanctioned issue is negatively correlated with the success of a sanction outcome. The coefficient of -0.473 means that having the target and sender nation be both invested in the sanctioned issue by 1% causes a 4.7% decrease in sanction success. Equal issue salience creates incentive to maintain national interest rather than work towards concessions or accordance to international order. Thus, it tracks that sanctions over vigorously contested issues tend to be less effective, and perhaps should dissuade nations from using sanctions as a means to further their interest. The p-value is 0.02, which means the null hypothesis could be rejected if alpha = 0.05, which validates the statistical significance of issue salience on sanction outcome.</p>
+<p>Lastly and most significantly, having overwhelming military superiority contributes to a -0.636 coefficient. This means overwhelmingly outspending the target country by 1% diminishes sanction success by 6.4%. Despite the p value being 0.064, which is slightly more than alpha = 0.05, it is still less than alpha = 0.1. With reiterative data analysis projects this could be validated, but this is still statistically significant. It explains why unilateral action by the US contributes to disproportionate failures in sanction outcomes – barely any country is in competition for how much the US is spending on the military. This is strong evidence that coercive force and the threat of military superiority weighs upon the successes of sanctions and impedes the maintenance of international order.</p>
+<p>As such, the linear regression analysis reveals that sanctions are inherently aggressive and threat of violence and fierce contestation are detrimental to the maintenance of a peaceful neo-liberal world system. The economic damages, issue salience, and military expenditure superiority are statistically significant variables that affect the success of sanctions.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Through this anlysis, I would argue that Steven Pinker is slightly wrong about characterising the world peace – the aggression has simply shifted into other less visible areas such as sanctions. Sanctions would be seen as more neutral means of policing a peaceful world order if it does not inherently rely on domination and the threat of aggression, as well as the potential for protracted economic damage and attrition. However, I would like to acknowledge the various shortcomings of this data analysis. Assessing sanctions and its potential abuse as an economic weapon is difficult because of the inherent skew in the data available. Sanctions are almost unilaterally directed by the USA as the global hegemon, which means that there may be many confounding variables that this analysis has not eliminated. Diplomatic allies, US’ role in the UNSC and exercise of veto powers, and the potential for military aid concurrent to the sanctions are all variables that could have affected the sanction outcome. There are also less data from multilateral sources than ideal for it reduces the agency of international organisations as guardians of a neo-liberal world order. With more time and money, I would pursue the research specifically in two areas: whether the types of sanction actions pursued affected the outcome, and how the target nations responded. This would provide a more discriminate and precise diagnosis of how sanctions can enforce or undermine the peaceful world order, and places the analysis on the actions of the belligerent nation, which is ultimately a decisive actor in the effectiveness of a sanction’s desired outcome.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Julio Solis, Book 1<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Pinker, Steven, The Better Angels of Our Nature: Why Violence Has Declined. , 2011.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Attia, Hana; Julia Grauvogel, 2022, “International Sanctions Termination Dataset”, <a href="https://doi.org/10.7910/DVN/SVR5W7" class="uri">https://doi.org/10.7910/DVN/SVR5W7</a>, Harvard Dataverse, V1<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Sarkees, Meredith Reid and Frank Wayman (2010). Resort to War: 1816 – 2007. Washington DC: CQ Press.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>GDP in current USD, World Bank national accounts data, and OECD National Accounts data files, NY.GDP.MKTP.CD, World Bank Group Archives, Washington, D.C., United States.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Mulder, Nicholas, 2022. The Economic Weapon: The Rise of Sanctions As a Tool of Modern War. New Haven: Yale University Press.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Fakhri, Michael. “Situating Unilateral Coercive Measures within a Broader Understanding of Systemic Violence.” Yale Journal of International Law, June 22, 2023. <a href="https://www.yjil.yale.edu/situating-unilateral-coercive-measures-within-a-broader-understanding-of-systemic-violence/" class="uri">https://www.yjil.yale.edu/situating-unilateral-coercive-measures-within-a-broader-understanding-of-systemic-violence/</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Hausmann, R., Schetter, U. &amp; Yildirim, M.A., 2022. On the Design of Effective Sanctions: The Case of Bans on Exports to Russia. Copy at <a href="http://www.tinyurl.com/26vcvz9v" class="uri">http://www.tinyurl.com/26vcvz9v</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
